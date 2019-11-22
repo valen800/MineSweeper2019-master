@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation"
+    app:startDestination="@id/configFragment">
+
+    <fragment
+        android:id="@+id/configFragment"
+        android:name="org.ieselcaminas.victor.minesweeper2019.ConfigFragment"
+        android:label="ConfigFragment" >
+        <action
+            android:id="@+id/action_configFragment_to_gameFragment"
+            app:destination="@id/gameFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/gameFragment"
+        android:name="org.ieselcaminas.victor.minesweeper2019.GameFragment"
+        android:label="GameFragment" >
+        <action
+            android:id="@+id/action_gameFragment_to_lose"
+            app:destination="@id/lose" />
+        <action
+            android:id="@+id/action_gameFragment_to_won"
+            app:destination="@id/won" />
+        <argument
+            android:name="numRows"
+            app:argType="integer" />
+        <argument
+            android:name="numCols"
+            app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/lose"
+        android:name="org.ieselcaminas.victor.minesweeper2019.GameLose"
+        android:label="fragment_lose"
+        tools:layout="@layout/fragment_lose" />
+    <fragment
+        android:id="@+id/won"
+        android:name="org.ieselcaminas.victor.minesweeper2019.GameWin"
+        android:label="fragment_won"
+        tools:layout="@layout/fragment_win" >
+    </fragment>
+    <fragment
+        android:id="@+id/aboutFragment"
+        android:name="org.ieselcaminas.victor.minesweeper2019.AboutFragment"
+        android:label="fragment_about"
+        tools:layout="@layout/fragment_about" />
+</navigation>

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <LinearLayout
+        android:id="@+id/LinearGlobal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <!-- TODO: Update blank fragment layout -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="GAME FRAGMENT"
+            android:textSize="40sp" />
+
+        <TextView
+            android:id="@+id/textLoose"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/loose"
+            android:textSize="36sp"
+            android:visibility="invisible" />
+
+        <Button
+            android:id="@+id/buttonRestart"
+            android:layout_width="63dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center"
+            android:background="@drawable/smiley"
+            android:gravity="center" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/buttonWin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_marginRight="235dp"
+                android:text="@string/ButtonWIn" />
+
+            <Button
+                android:id="@+id/buttonLose"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/ButtonLose" />
+        </LinearLayout>
+
+        <ScrollView
+            android:id="@+id/ScrollView1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center">
+
+                <HorizontalScrollView
+                    android:id="@+id/HorizontalScrollView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center">
+
+                    <GridLayout
+                        android:id="@+id/GridLayoutButtons"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center">
+
+                    </GridLayout>
+                </HorizontalScrollView>
+            </FrameLayout>
+        </ScrollView>
+    </LinearLayout>
+</layout>
