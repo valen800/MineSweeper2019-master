@@ -12,7 +12,7 @@ import androidx.appcompat.content.res.AppCompatResources.getDrawable
 import androidx.databinding.adapters.ViewBindingAdapter.setOnLongClickListener
 const val SIZE = 50
 
-class MineButton constructor(context: Context, var row: Int, var col: Int): ImageButton(context) {
+class MineButton constructor(context: Context, var row: Int, var col: Int, var flagListener: FlagListener): ImageButton(context) {
     public var state: StateType = StateType.CLOSED
 
     init {
@@ -50,10 +50,12 @@ class MineButton constructor(context: Context, var row: Int, var col: Int): Imag
 
                 StateType.FLAG -> {button.setImageDrawable(
                     getDrawable(context, R.drawable.question))
-                    button.state = StateType.QUESTION }
+                    button.state = StateType.QUESTION
+                    flagListener.removeFlag()}
 
                 StateType.QUESTION -> {button.setImageDrawable(null)
-                    button.state = StateType.CLOSED}
+                    button.state = StateType.CLOSED
+                    flagListener.addFlag()   }
             }
 
 

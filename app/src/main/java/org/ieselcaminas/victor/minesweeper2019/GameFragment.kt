@@ -13,11 +13,17 @@ import androidx.navigation.findNavController
 import kotlinx.android.synthetic.main.fragment_game.*
 import org.ieselcaminas.victor.minesweeper2019.databinding.FragmentGameBinding
 
-class GameFragment : Fragment() {
+interface FlagListener {
+    fun addFlag()
+    fun removeFlag()
+}
+
+class GameFragment : Fragment(), FlagListener {
 
     lateinit var binding: FragmentGameBinding
     lateinit var board: Array<Array<MineButton>>
     lateinit var bombMatrix: BombMatrix
+    var numFlags: Int = 0
     var numRows: Int = 0
     var numCols: Int = 0
 
@@ -40,7 +46,13 @@ class GameFragment : Fragment() {
             it.findNavController().navigate(GameFragmentDirections.actionGameFragmentToLose())
         }
 
-        binding.buttonRestart.setOnClickListener() {
+        binding.buttonSadFace.setOnClickListener() {
+            binding.buttonSadFace.visibility = View.INVISIBLE
+            binding.buttonsmileface.visibility = View.VISIBLE
+            clearBoard()
+        }
+
+        binding.buttonsmileface.setOnClickListener() {
             clearBoard()
         }
 
@@ -49,12 +61,18 @@ class GameFragment : Fragment() {
         numCols = args.numCols
         bombMatrix = BombMatrix(numRows, numCols, (numRows * numCols) / 6)
 
-
-
         createButtons(bombMatrix)
 
         return binding.root
 
+    }
+
+    override fun addFlag() {
+        numFlags++
+    }
+
+    override fun removeFlag() {
+        numFlags--
     }
 
     private fun clearBoard(){
@@ -78,7 +96,7 @@ class GameFragment : Fragment() {
     private fun createButtons(boardMatrix: BombMatrix) {
         board = Array(numRows) { row ->
             Array(numCols) { col ->
-                MineButton(context!!, row, col)
+                MineButton(context!!, row, col, this)
             }
         }
 
@@ -98,7 +116,7 @@ class GameFragment : Fragment() {
 
                 printAndFormatNumbersAndBomb(boardMatrix, button, backgroundImageBomb, backgroundImageView, numBack, layoutParamsBombs)
 
-                adjustFrameLayout(backgroundImageView, layoutParams,numBack, backgroundImageView, button, FrameLayout)
+                adjustFrameLayout(backgroundImageView, layoutParams,numBack, backgroundImageBomb, button, FrameLayout)
 
                 binding.GridLayoutButtons.addView(FrameLayout)
                 button.setOnClickListener() {
@@ -132,6 +150,7 @@ class GameFragment : Fragment() {
     private fun adjustFrameLayout(backgroundImageView: ImageView, layoutParams: LinearLayout.LayoutParams,
                                   numBack: TextView, backgroundImageBomb: ImageView, button: MineButton,
                                   FrameLayout: FrameLayout) {
+
         backgroundImageView.setPadding(0, 0, 0, 0)
         backgroundImageView.scaleType = ImageView.ScaleType.CENTER
         backgroundImageView.adjustViewBounds = true
@@ -167,6 +186,9 @@ class GameFragment : Fragment() {
         if (boardMatrix.value(button.row, button.col) == BOMB_INT) {
             binding.LinearGlobal.setBackgroundColor(Color.RED)
             binding.textLoose.visibility = View.VISIBLE
+
+            binding.buttonSadFace.visibility = View.VISIBLE
+            binding.buttonsmileface.visibility = View.INVISIBLE
 
             for (row in 0..board.size-1) {
                 for (col in 0..board.size-1) {
